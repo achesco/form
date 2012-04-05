@@ -1,0 +1,48 @@
+.form__file-container {
+	position: relative;
+}
+.form__file-wrapper {
+	position: relative;
+	overflow: hidden;
+}
+.form__file-input {
+    font-size: 500px;
+    opacity:0;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+}
+.lte8 .form__file-input {
+	filter: alpha(opacity=0);
+}
+.form__file-container_load {
+	background: url(ajax-loader.gif) no-repeat center center;
+}
+.form__file-container_ok button,
+.form__file-container_load button {
+	display: none;
+}
+.form__file-container_ok .form__field-comment_req,
+.form__file-container_load .form__field-comment_req {
+	display: none;
+}
+.form__field-preview {
+	position: relative;
+}
+.form__field-preview-info {
+	color: #939598;
+	font-size: 75%;
+}
+.form__file-container .g-icon_close {
+	position: absolute;
+	right: 12px;
+	top: 1.4em;
+	cursor: pointer;
+	display: none;
+}
+.form__file-container_ok .g-icon_close {
+	display: block;
+}
