@@ -138,6 +138,6 @@ form.FileInput.prototype.restart = function() {
 /**
     Установка "реального" значения в скрытом поле.
 */
-FileInput.prototype.setValue = function(sValue) {
+form.FileInput.prototype.setValue = function(sValue) {
     this.valueWidget.setValue(this.valueWidget.createValue(sValue));
 };
