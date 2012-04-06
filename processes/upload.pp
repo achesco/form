@@ -30,6 +30,7 @@ $hResult[
 				^switch[$hFieldConf.type]{
 					^case[image]{
 						$hResult.preview[^self.outputImage[$h.image;$sFilePath;$hFieldConf]]
+						$hResult.preview[$hResult.preview^self.outputFile[$f]]
 					}
 					^case[DEFAULT]{
 						$hResult.preview[^self.outputFile[$f]]
@@ -90,3 +91,8 @@ $hResult[
 	$result[<img src="$sFilePath" $sAttr title="" />]
 	$result[^result.base64[]]
 
+
+@outputFile[f]
+	
+	$result[<div class="form__field-preview-info">$f.name</div>]
+	$result[^result.base64[]]
