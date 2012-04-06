@@ -1,49 +1,26 @@
 /**
-    <p>Класс для ajax-загрузки файлов с zforms интеграцией. Для работы необходимо наличие верстки вида:</p>
- 
-    <pre><code>
-    <form id="id_" name="_form_">
-         ...
-        <div class="form__file-container">
-            <input type="hidden" class="zf" id="_hidden_" name="_hidden_" onclick="return { oRequired: {} }" value="" />
-            <div class="form__file-wrapper">
-                <input type="file" class="form__file-input" id="_file_" name="_file_" />
-                <div class="pretty-button">Загрузить</div>
-           </div>
-           <div class="form__field-preview">
-               <div class="g-icon g-icon_close"></div>
-           </div>
-           <div class="form__field-comment form__field-comment_req">Принимаются только файлы формата .jpg и&nbsp;.png</div>
-        </div>
-         ...
-    </form>
-    </code></pre>
-    
-    <p>У элементов form и input, учавствующих в работе виджета, должны быть назначены идентификаторы.</p>
-    
-    <p>Пример вызова:</p>
-    
-    <pre><code>
-      $(function(){
-        new FileInput(".form__file-contaner", {
-          url: "./file-upload/",
-          formId: "participant-form"
-        });
-      });
-    </code></pre>
-    
-    @author Anton Lysenko (chesco@design.ru)
-     
-    @constructor
+@namespace Пакет классов для работы с формами.
+@requires jquery 1.5+ (http://jquery.com/download/)
+@requires ZForms 3.0.4+ (http://zforms.ru/download/)
+@requires base64.js
+@requires $.identify
+*/
+var form = {};
+
+/**
+    @class Класс для ajax-загрузки файлов с zforms интеграцией.
+    @see <a href="https://github.com/triangle/form/wiki/form.FileInput">Описание</a>
+    @author <a href="mailto:achesco@gmail.com">Anton Lysneko</a>
     @param {String|Element|jQuery} container Контейнер попапа.
     @param {Object} options Параметры:
     @param {String} [options.url="."] Урл для отпавки файлов на :).
     @param {String|Element|jQuery} [options.fileField="input[type=file]"] Файловое поле внутри контейнера.
     @param {String|Element|jQuery} [options.valueField="input[type=hidden]"] Поле для хранения пути к файлу на сервере.
     @param {String|Element|jQuery} [options.preview=".form__field-preview"] Элемент для вывода результатов.
-    @param {String|Element|jQuery} [options.restartControl=".g-icon_close"] Контрол элемент для сброса выбранного файла. 
-    @param {String} [options.classOk="form__file-container_ok"] Класс контейнера, статус ок.
+    @param {String|Element|jQuery} [options.restartControl=".g-icon_close"] Контрол элемент для сброса выбранного файла.
     @param {String} [options.classLoad="form__file-container_load"] Класс контейнера в процессе аплоада.
+    @param {String} [options.classOk="form__file-container_ok"] Класс контейнера, статус ок.
+    @param {String} [options.classError="form__file-container_error"] Класс контейнера, статус ошибки.
  */
 form.FileInput = function(container, options) {
     this.init(container, options);
@@ -59,8 +36,9 @@ form.FileInput.prototype.init = function(container, options) {
         valueField: "input[type=hidden]",
         preview: ".form__field-preview",
         restartControl: ".g-icon_close",
+        classLoad: "form__file-container_load",
         classOk: "form__file-container_ok",
-        classLoad: "form__file-container_load"
+        classError: "form__file-container_error"
     }, options);
   
     this.container = $(container);
@@ -106,7 +84,6 @@ form.FileInput.prototype.init = function(container, options) {
 */
 form.FileInput.prototype.upload = function() {
     this.form.append(this.fileField)
-    this.container.removeClass(this.options.classOk);
     this.container.addClass(this.options.classLoad);
     this.io.one("load", $.proxy(this.complete, this));
     this.form.submit();
@@ -120,10 +97,14 @@ form.FileInput.prototype.complete = function(data) {
     if(typeof data !="undefined"){
         if(data.code == 0){
             this.container.addClass(this.options.classOk);
-            this.container.removeClass(this.options.classLoad);
             this.setValue(data.filePath);
-            this.preview.html(Base64.decode(data.preview));
         }
+        else {
+            this.container.addClass(this.options.classError);
+            this.fileFieldParent.prepend(this.fileField);
+            this.setValue("");
+        }
+        this.preview.html(Base64.decode(data.preview));
     }
 };
 /**
@@ -133,6 +114,7 @@ form.FileInput.prototype.restart = function() {
     this.preview.html("");
     this.fileFieldParent.prepend(this.fileField);
     this.container.removeClass(this.options.classOk);
+    this.container.removeClass(this.options.classError);
     this.setValue("");
 };
 /**
