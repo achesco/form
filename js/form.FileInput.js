@@ -1,13 +1,4 @@
 /**
-@namespace Пакет классов для работы с формами.
-@requires jquery 1.5+ (http://jquery.com/download/)
-@requires ZForms 3.0.4+ (http://zforms.ru/download/)
-@requires base64.js
-@requires $.identify
-*/
-var form = {};
-
-/**
     @class Класс для ajax-загрузки файлов с zforms интеграцией.
     @see <a href="https://github.com/triangle/form/wiki/form.FileInput">Описание</a>
     @author <a href="mailto:achesco@gmail.com">Anton Lysneko</a>
