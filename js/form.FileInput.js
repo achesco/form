@@ -74,7 +74,7 @@ form.FileInput.prototype.init = function(container, options) {
     Аплоад файла.
 */
 form.FileInput.prototype.upload = function() {
-    this.form.append(this.fileField)
+    this.form.append(this.fileField);
     this.container.addClass(this.options.classLoad);
     this.io.one("load", $.proxy(this.complete, this));
     this.form.submit();
