@@ -24,7 +24,7 @@ form.FormHelper = function(options) {
     invalidOkClass : 'zf-invalid-ok',
     requiredClass : 'zf-required',
     requiredOkClass : 'zf-required-ok',
-    errorBubbleClass : 'zf-error-bubble',
+    errorBubbleClass : 'zf-hint',
     
 // -- I18n :-)
     
