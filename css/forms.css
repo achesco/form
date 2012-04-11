@@ -27,8 +27,8 @@
 .form__file-container_load button {
 	display: none;
 }
-.form__file-container_ok .form__field-comment_req,
-.form__file-container_load .form__field-comment_req {
+.form__file-container_ok .form__field-comment,
+.form__file-container_load .form__field-comment {
 	display: none;
 }
 .form__field-preview {
@@ -47,6 +47,9 @@
 }
 .form__file-container_ok .g-icon_close {
 	display: block;
+}
+.form__file-container_error .form__field-comment {
+	color: #d52b77;
 }
 
 
