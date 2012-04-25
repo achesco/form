@@ -1,4 +1,4 @@
-@main[][session;hConfig;hDefault;f;h;hFiles;sField;hFieldConf;sType;sFilePath;hResult]
+@main[][locals]
 
 $session[^math:uuid[]]
 $hDefault[
@@ -8,7 +8,7 @@ $hDefault[
 $hConfig[^json:parse[{
 	^self.parseBlock[upload-config][$.bNoXML(1)]
 }]]
-$hConfing[^hConfig.union[$hDefault]]
+$hConfig[^hConfig.union[$hDefault]]
 $hConfig.basePath[/^hConfig.basePath.trim[both;/]/$session/]
 
 $hResult[
@@ -23,10 +23,10 @@ $hResult[
 			$f[$form:files.[$sField].0]
 			$h[^self.verifyField[$f;$hFieldConf]]
 			^if($h.result){
-################ non-error code
+				^rem{ non-error code }
 				$hResult.code(0)
 				$sFilePath[^self.saveField[$f;$hConfig.basePath]]
-				$hFieldConf.type[^if(def $hFieldConf.type){$hFieldConf.type}{$hConfing.defaultType}]
+				$hFieldConf.type[^if(def $hFieldConf.type){$hFieldConf.type}{$hConfig.defaultType}]
 				^switch[$hFieldConf.type]{
 					^case[image]{
 						$hResult.preview[^self.outputImage[$h.image;$sFilePath;$hFieldConf]]
