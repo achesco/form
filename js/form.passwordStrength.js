@@ -1,6 +1,8 @@
 /**
     Determine presumable password strength: value form 0 to 5
     @static
+    @param {String} val Строка для анализа.
+    @param {Number} minLength Минимальная длинна строки до которой сила всегда равна 0.
  */
 form.passwordStrength = function(val, minLength) {
 
