@@ -1,5 +1,5 @@
 /**
-    Determine presumable password strength: value form 0 to 5
+    Эмуляции placeholder там, где его нет из коробки.
     @static
     @param {Object} options Параметры:
     @param {String|Element|jQuery} [options.inputFields="input[placeholder]"] Инпуты с плейсхолдерами.
